@@ -113,10 +113,50 @@ func cancel(task: Task?) {
     task?(cancel: true)
 }
 
+// MARK: 模拟 kvc
+/**
+根据 key 获取对应的值
+
+:param: object 从哪个对象种获取
+:param: key    key 值
+
+:returns: 取得的值
+*/
+func valueFrom(object: Any, key: String) -> Any? {
+    let mirror = reflect(object)
+    for index in 0..<mirror.count {
+        let (targetKey, targetMirror) = mirror[index]
+        if key == targetKey {
+            return targetMirror.value
+        }
+    }
+    
+    return nil
+}
 
 
+// MARK:
 
+extension Double {
+    /**
+    格式化 Double
+    
+    :param: f 格式化字符串
+    
+    :returns: 格式化后的字符串
+    */
+    func format(f: String) -> String {
+        return String(format: "%\(f)f", self)
+        
+    }
+}
 
+// MARK: log
+func printLog<T>(message: T, file: String = __FILE__, method: String = __FUNCTION__, line: Int = __LINE__) {
+#if DEBUG
+    println("\(file.lastPathComponent)[\(line)], \(method): \(message)")
+#endif
+}
 
 
 

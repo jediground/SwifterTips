@@ -41,6 +41,14 @@ class ViewController: UIViewController {
         
         let task = delay(2) { println("call 911") }
         cancel(task)
+
+        let string = "Hello"
+        println(_stdlib_getTypeName(string))
+        
+        let anotherString = "world"
+        println(_stdlib_getDemangledTypeName(anotherString))
+        
+        //
         
     }
 }
